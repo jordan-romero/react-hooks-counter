@@ -24,6 +24,8 @@ const App = () => {
 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
+    const [year] = useState(new Date().getFullYear())
+
     useEffect(() => {
       const timer = setTimeout(() => {
         setTimeLeft(calculateTimeLeft())
@@ -32,10 +34,24 @@ const App = () => {
     })
 
     const timerComponents = []
-  return (
-    <>
+
+    Object.keys(timeLeft).forEach((interval) => {
+      if (!timeLeft[interval]) {
+        return;
+      }
     
-    </>
+      timerComponents.push(
+        <span>
+          {timeLeft[interval]} {interval}{" "}
+        </span>
+      );
+    });
+
+  return (
+    <div>
+      <h1>Countdown to Stella's Birthday - {year}!</h1>
+      {timerComponents.length ? timerComponents : <span>Time's up!</span>}
+    </div>  
   );
 }
 
